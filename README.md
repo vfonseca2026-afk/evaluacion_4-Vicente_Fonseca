@@ -10,7 +10,7 @@ El proyecto migra el portafolio estático de la Evaluación N.º 2 a una aplicac
 - TypeScript con configuración estricta.
 - Vite.
 - React Router.
-- CSS con nomenclatura BEM en los componentes adaptados.
+- CSS modular con nomenclatura BEM en la aplicación React.
 - ESLint.
 - GitHub REST API.
 
@@ -81,17 +81,25 @@ public/
 
 src/
 ├── components/          Componentes reutilizables
-├── data/                Datos estáticos de los proyectos
-├── hooks/               Lógica de consulta y estado asíncrono
+├── context/             Proveedor y contexto del tema
+├── data/                Datos estáticos de proyectos, campos y navegación
+├── hooks/               Consulta asíncrona, acceso al tema y estado de scroll
 ├── pages/               Vistas asociadas a las rutas
-├── services/            Comunicación con GitHub y caché
+├── services/            GitHub, caché y persistencia del tema
+├── styles/              Layout, botones y variables de tema
 ├── types/               Interfaces y tipos exportados
+├── utils/               Filtrado y validación de formulario
 ├── App.tsx              Estructura y configuración de rutas
 ├── main.tsx             Punto de entrada
-└── index.css            Estilos generales y diseño recuperado
+└── index.css            Variables, reset y estilos base
+
+scripts/
+└── verificar-proyecto.cjs  Verificación automatizada
 
 docs/
-└── api-github.md         Contrato y funcionamiento de la API
+├── api-github.md           Contrato y funcionamiento de la API
+├── estado-y-tema.md        Gestión de filtros y tema
+└── verificacion-etapa-5.md  Alcance de pruebas y revisión manual
 ```
 
 ## Migración desde la Evaluación N.º 2
@@ -103,6 +111,7 @@ Se recuperan:
 - Sección Sobre mí.
 - Tarjetas de Psicoanálisis Conductual, perfil de GitHub y Bitácora de hongos.
 - Formulario de contacto y robot flotante.
+- Barra de progreso de lectura y sombra del encabezado.
 - Proyectos históricos con sus recursos.
 
 Las secciones principales se convierten en vistas de React Router. Las tarjetas se generan desde datos separados y reciben información mediante props tipadas.
@@ -137,7 +146,7 @@ Más detalles en [Gestión de filtros y tema](docs/estado-y-tema.md).
 
 Los campos se gestionan mediante estado de React.
 
-El formulario comprueba los campos obligatorios, el formato del correo y que el nombre y el mensaje no contengan únicamente espacios.
+El formulario comprueba los campos obligatorios, el formato del correo y que el nombre y el mensaje no contengan únicamente espacios. Los errores se asocian a cada campo mediante `aria-describedby` y `aria-invalid`; al validar, el foco pasa al primer campo inválido.
 
 La confirmación indica que se trata de una validación local. No existe todavía un servicio de envío de correo.
 
@@ -145,7 +154,7 @@ La confirmación indica que se trata de una validación local. No existe todaví
 
 El robot abre un diálogo modal que reutiliza el componente del formulario.
 
-El diálogo permite cerrar mediante su botón o con Escape y devuelve el foco al botón de apertura.
+El diálogo enfoca el primer campo al abrirse. Permite cerrar mediante su botón, con Escape o pulsando el fondo exterior, y devuelve el foco al botón de apertura.
 
 ### Repositorios de GitHub
 
@@ -252,6 +261,13 @@ Antes de integrar cada avance se deben ejecutar:
 npm run lint
 npm run build
 ```
+También puede ejecutarse el verificador automatizado:
+
+```sh
+node scripts/verificar-proyecto.cjs
+```
+
+El verificador realiza 48 comprobaciones de CSS/BEM, vistas, etiquetas, validación, asociación de errores y once pares de contraste. No ejecuta los efectos del navegador ni sustituye la revisión visual y de teclado. Su alcance se explica en [Verificación de la etapa 5](docs/verificacion-etapa-5.md).
 
 ### Comprobaciones manuales
 
@@ -271,11 +287,13 @@ Los resultados de la revisión manual y la auditoría final se documentarán al 
 
 El desarrollo se organiza mediante ramas por funcionalidad, commits convencionales y Pull Requests hacia `main`.
 
-Ramas utilizadas para las primeras etapas:
+Organización de ramas por etapa:
 
 - `feat/base-typescript`.
 - `feat/migracion-portafolio`.
 - `feat/consumo-api`.
+- `feat/filtros-tema`.
+- `style/bem-accesibilidad`.
 
 Cada Pull Request debe describir los cambios, explicar cómo comprobarlos y revisarse antes de su integración.
 
@@ -289,10 +307,8 @@ La configuración del alojamiento y la publicación no están incluidas todavía
 
 ## Trabajo pendiente
 
-- Incorporar filtros de proyectos.
-- Implementar la preferencia de tema mediante Context API.
-- Completar la organización modular de CSS y revisar BEM.
-- Corregir detalles de accesibilidad y revisar imágenes.
+- Completar la revisión manual de accesibilidad, teclado y diseño responsivo.
+- Revisar el tamaño y la carga de las imágenes históricas.
 - Completar las pruebas y registrar sus resultados.
 - Incorporar `docs/captura-e2.png`.
 - Completar `INVENTARIO.md`.

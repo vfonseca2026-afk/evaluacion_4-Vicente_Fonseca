@@ -1,0 +1,30 @@
+.form { display: grid; grid-template-columns: minmax(0,1fr); gap: 1.1rem; padding: 1.5rem; border: 1px solid var(--form-border); border-radius: 24px; background: var(--form-background); color: var(--form-color); text-align: left; }
+
+.form__field { display: flex; flex-direction: column; gap: .4rem; min-width: 0; }
+
+.form__label { font-weight: 700; font-size: .92rem; color: var(--form-color); }
+
+.form__control { width: 100%; min-width: 0; min-height: 44px; padding: .8rem 1rem; border: 1px solid var(--form-border); border-radius: 12px; background: var(--field-background); color: var(--form-color); }
+
+.form__control::placeholder { color: var(--field-placeholder); }
+
+.form__control:hover { border-color: var(--surface-focus); }
+
+.form__control:focus-visible { outline: 3px solid var(--surface-focus); outline-offset: 2px; background: var(--field-focus-background); }
+
+.form__control--textarea { resize: vertical; min-height: 130px; }
+
+.form__control[aria-invalid='true'] { border-color: var(--error-color); }
+
+.form__error { color: var(--error-color); font-size: .9rem; }
+
+.form__note { font-size: .85rem; text-align: center; }
+
+.form__status { color: var(--form-color); overflow-wrap: anywhere; }
+
+.form__status--error { color: var(--error-color); }
+
+@media (min-width: 600px) {
+  .form { grid-template-columns: repeat(2,minmax(0,1fr)); padding: 2.25rem; }
+  .form__field--full, .form__note, .form__submit, .form__status { grid-column: 1 / -1; }
+}

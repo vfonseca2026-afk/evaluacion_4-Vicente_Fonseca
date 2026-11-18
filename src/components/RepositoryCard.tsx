@@ -1,3 +1,4 @@
+import './RepositoryCard.css'
 import type { RepositoryCardProps } from '../types/github'
 
 export default function RepositoryCard({ repository }: RepositoryCardProps) {

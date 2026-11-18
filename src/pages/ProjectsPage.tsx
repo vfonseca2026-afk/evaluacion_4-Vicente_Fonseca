@@ -1,3 +1,4 @@
+import './ProjectsPage.css'
 import { useState } from 'react'
 import { projects } from '../data/portfolioData'
 import ProjectFilters from '../components/ProjectFilters'
@@ -17,10 +18,10 @@ export default function ProjectsPage() {
   const filteredProjects = filterProjects(projects, filter)
 
   return (
-    <section className="section trabajos" aria-labelledby="projects-title">
+    <section className="section trabajos projects" aria-labelledby="projects-title">
       <div className="container">
         <header className="section__head">
-          <h1 id="projects-title">Trabajos y evidencias de mi progreso</h1>
+          <h1 className="section__title" tabIndex={-1} id="projects-title">Trabajos y evidencias de mi progreso</h1>
           <p className="section__desc">
             Evidencias del aprendizaje práctico desarrolladas durante el tiempo que me he desarrollado en el ámbito.
           </p>

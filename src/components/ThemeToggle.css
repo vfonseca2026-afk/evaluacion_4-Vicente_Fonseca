@@ -1,0 +1,7 @@
+.theme-toggle { flex-shrink: 0; min-height: 44px; padding: .5rem 1rem; border: 1px solid #c4b5fd; border-radius: 999px; background: #24124c; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+
+.theme-toggle:hover { background: #3b1478; }
+
+.theme-toggle:focus-visible { outline: 3px solid #fcd1ae; outline-offset: 3px; }
+
+.footer .theme-toggle { margin-top: 1rem; }
