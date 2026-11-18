@@ -325,16 +325,6 @@ La configuración del alojamiento y la publicación no están incluidas todavía
 
 La participación del asistente, los prompts, las verificaciones y la reflexión del autor se documentan en [uso_ia.md](uso_ia.md). El asistente generó una parte sustancial del código y la documentación; el autor dirigió y revisó las decisiones y aplicó los avances por etapas.
 
-## Comprobación previa a la entrega
-
-- Revisar que `docs/captura-e2.png` muestre el original en alta resolución.
-- Completar los resultados reales de teclado y responsividad en la auditoría.
-- Revisar que la reflexión de `uso_ia.md` represente la experiencia personal del autor.
-- Ejecutar lint, build y los verificadores.
-- Revisar el PR final y comprobar que los cambios estén integrados en `main`.
-
-Las imágenes históricas conservan sus dimensiones originales. La optimización adicional y un servicio real de correo son posibles mejoras posteriores; no se presentan como implementadas.
-
 ## Autor
 
 Vicente Fonseca  
