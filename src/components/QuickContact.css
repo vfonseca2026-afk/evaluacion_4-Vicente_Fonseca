@@ -127,3 +127,41 @@
 .popup :focus-visible { outline-color: var(--surface-focus); }
 
 .popup .form { padding: .25rem; border: 0; }
+
+.popup {
+  opacity: 0;
+  transform: translateY(14px) scale(.975);
+  transform-origin: center;
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(.16, 1, .3, 1);
+}
+
+.popup[open] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.popup[open]::backdrop {
+  opacity: 1;
+  transition: opacity 280ms ease-out;
+  transition-duration: inherit;
+}
+
+.popup.popup--closing {
+  opacity: 0;
+  transform: translateY(8px) scale(.985);
+  pointer-events: none;
+}
+
+.popup.popup--closing::backdrop { opacity: 0; }
+
+/* Estado inicial al pasar de display:none a un diálogo abierto. */
+@starting-style {
+  .popup[open] { opacity: 0; transform: translateY(14px) scale(.975); }
+  .popup[open]::backdrop { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .popup, .popup[open]::backdrop { transition: none !important; }
+  .popup[open] { transform: none; }
+}
