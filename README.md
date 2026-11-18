@@ -113,6 +113,26 @@ La captura comparativa de E2 y el inventario detallado de migración están pend
 
 ## Funcionalidades
 
+### Filtros de trabajos
+
+La búsqueda permite filtrar por título, descripción y tecnología,
+ignorando mayúsculas y tildes. Puede combinarse con la selección
+de una tecnología.
+
+El estado vive en ProjectsPage y se comparte mediante props entre
+los controles y los resultados. La lista filtrada se calcula a partir
+de ese estado, sin guardar una copia adicional.
+
+### Preferencia de tema
+
+ThemeProvider comparte el tema mediante Context API.
+Los controles del encabezado y del pie modifican la misma preferencia.
+
+La elección se conserva en localStorage. Si el almacenamiento está
+bloqueado, el cambio continúa funcionando durante la sesión.
+
+Más detalles en [Gestión de filtros y tema](docs/estado-y-tema.md).
+
 ### Formulario de contacto
 
 Los campos se gestionan mediante estado de React.

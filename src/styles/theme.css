@@ -1,0 +1,112 @@
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+html[data-theme='light'] {
+  color-scheme: light;
+}
+
+.theme-toggle {
+  flex-shrink: 0;
+  min-height: 44px;
+  padding: .5rem 1rem;
+  border: 1px solid #c4b5fd;
+  border-radius: 999px;
+  background: #24124c;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: #3b1478;
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid #fcd1ae;
+  outline-offset: 3px;
+}
+
+.footer .theme-toggle {
+  margin-top: 1rem;
+}
+
+/* La portada, el encabezado y el pie conservan la identidad violeta de E2. */
+[data-theme='light'] .sobre-mi,
+[data-theme='light'] .trabajos,
+[data-theme='light'] .contacto {
+  background: rgba(246, 242, 252, .97);
+  color: #140a2b;
+}
+
+[data-theme='light'] .sobre-mi h1,
+[data-theme='light'] .trabajos h1,
+[data-theme='light'] .contacto h1,
+[data-theme='light'] .sobre-mi h2,
+[data-theme='light'] .trabajos h2,
+[data-theme='light'] .contacto h2 {
+  color: #3b1478;
+}
+
+[data-theme='light'] .section__desc,
+[data-theme='light'] .about__bio p,
+[data-theme='light'] .status-message,
+[data-theme='light'] .project-results__status {
+  color: #475569;
+}
+
+[data-theme='light'] .about__bio strong {
+  color: #4c1d95;
+}
+
+[data-theme='light'] .form,
+[data-theme='light'] .popup {
+  border-color: #8b78b0;
+  background: #fff;
+  color: #140a2b;
+}
+
+[data-theme='light'] .form label,
+[data-theme='light'] .form__status,
+[data-theme='light'] .popup__header h2,
+[data-theme='light'] .popup__close {
+  color: #140a2b;
+}
+
+[data-theme='light'] .form__note,
+[data-theme='light'] .required {
+  color: #475569;
+}
+
+[data-theme='light'] .form input,
+[data-theme='light'] .form textarea,
+[data-theme='light'] .form input:focus-visible,
+[data-theme='light'] .form textarea:focus-visible {
+  background: #faf8ff;
+  color: #140a2b;
+  border-color: #8b78b0;
+}
+
+[data-theme='light'] .form input::placeholder,
+[data-theme='light'] .form textarea::placeholder {
+  color: #64748b;
+}
+
+[data-theme='light'] .contacto :focus-visible,
+[data-theme='light'] .popup :focus-visible,
+[data-theme='light'] .form input:focus-visible,
+[data-theme='light'] .form textarea:focus-visible {
+  outline-color: #6d28d9;
+}
+
+[data-theme='light'] .status-message--error {
+  border-color: #9a3412;
+  color: #9a3412;
+}
+
+@media (min-width: 600px) {
+  .header__container {
+    flex-wrap: wrap;
+  }
+}
