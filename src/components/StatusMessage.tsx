@@ -1,3 +1,4 @@
+import './StatusMessage.css'
 import type { StatusMessageProps } from '../types/github'
 
 export default function StatusMessage({ children, error = false }: StatusMessageProps) {

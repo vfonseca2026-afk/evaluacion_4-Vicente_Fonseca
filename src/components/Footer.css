@@ -1,0 +1,13 @@
+.footer {
+    background: rgba(12, 6, 30, .96);
+    color: #fff;
+    padding: 2.25rem 0;
+    text-align: center;
+    font-size: .92rem;
+}
+
+.footer__sub { color: #cbd5e1; margin-top: .3rem; font-size: .85rem; }
+
+.footer { padding-bottom: calc(2.25rem + 80px); }
+
+.footer :focus-visible { outline-color: #ddd6fe; }

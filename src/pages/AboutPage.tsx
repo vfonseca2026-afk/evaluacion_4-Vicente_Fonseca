@@ -1,7 +1,8 @@
-export default function AboutPage() { return (<section id="sobre-mi" className="section sobre-mi" aria-labelledby="sobre-mi-heading">
+import './AboutPage.css'
+export default function AboutPage() { return (<section id="sobre-mi" className="section sobre-mi about" aria-labelledby="sobre-mi-heading">
             <div className="container">
                 <header className="section__head">
-                    <h1 id="sobre-mi-heading">Sobre mí</h1>
+                    <h1 className="section__title" tabIndex={-1} id="sobre-mi-heading">Sobre mí</h1>
                     <p className="section__desc">Quién soy y qué estoy aprendiendo.</p>
                 </header>
 

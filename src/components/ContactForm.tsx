@@ -1,25 +1,51 @@
 import { useState } from 'react'
 import type { ContactValues, ContactFormProps, ContactChangeEvent, ContactSubmitEvent } from '../types'
-const empty: ContactValues = { nombre: '', email: '', asunto: '', mensaje: '' }
+import type { ContactErrors, ContactStatus } from '../types/contact'
+import { contactFields } from '../data/contactFields'
+import { validateContact } from '../utils/contactValidation'
+import ContactField from './ContactField'
+import './ContactForm.css'
+
+const initialValues: ContactValues = { nombre: '', email: '', asunto: '', mensaje: '' }
+
 export default function ContactForm({ prefix }: ContactFormProps) {
- const [values, setValues] = useState<ContactValues>(empty)
- const [status, setStatus] = useState<string>('')
- function change(event: ContactChangeEvent) {
-  const { name, value } = event.target
-  setValues(previous => ({ ...previous, [name]: value }))
-  setStatus('')
- }
- function submit(event: ContactSubmitEvent) {
-  event.preventDefault()
-  if (!values.nombre.trim() || !values.mensaje.trim()) { setStatus('Completa tu nombre y mensaje; no pueden contener solo espacios.'); return }
-  setStatus('Formulario validado correctamente. Esta demostración no envía mensajes: aún no hay un servicio de correo conectado.')
- }
- return <form className="form" onSubmit={submit}>
- <div className="form__row"><div className="form__group"><label htmlFor={`${prefix}-nombre`}>Nombre completo *</label><input id={`${prefix}-nombre`} name="nombre" autoComplete="name" required value={values.nombre} onChange={change} placeholder="Ej. Juan Pérez" /></div>
- <div className="form__group"><label htmlFor={`${prefix}-email`}>Correo electrónico *</label><input id={`${prefix}-email`} name="email" type="email" autoComplete="email" required value={values.email} onChange={change} placeholder="ejemplo@correo.cl" /></div></div>
- <div className="form__group"><label htmlFor={`${prefix}-asunto`}>Asunto</label><input id={`${prefix}-asunto`} name="asunto" value={values.asunto} onChange={change} placeholder="Motivo de consulta" /></div>
- <div className="form__group"><label htmlFor={`${prefix}-mensaje`}>Mensaje *</label><textarea id={`${prefix}-mensaje`} name="mensaje" required rows={5} value={values.mensaje} onChange={change} placeholder="Escribe tu mensaje aquí…" /></div>
- <p className="form__note">* Campos obligatorios. Demostración sin envío de correo.</p><button className="btn btn--primary btn--block" type="submit">Validar mensaje</button>
- <p className="form__status" role="status">{status}</p>
- </form>
+  const [values, setValues] = useState<ContactValues>(initialValues)
+  const [errors, setErrors] = useState<ContactErrors>({})
+  const [status, setStatus] = useState<ContactStatus>({ kind: 'idle', message: '' })
+
+  function change(event: ContactChangeEvent): void {
+    const { name, value } = event.target
+    const field = contactFields.find(item => item.name === name)?.name
+    if (!field) return
+    setValues(previous => ({ ...previous, [field]: value }))
+    setErrors(previous => ({ ...previous, [field]: undefined }))
+    setStatus({ kind: 'idle', message: '' })
+  }
+
+  function submit(event: ContactSubmitEvent): void {
+    event.preventDefault()
+    const nextErrors = validateContact(values)
+    setErrors(nextErrors)
+    const firstInvalid = contactFields.find(field => nextErrors[field.name])
+    if (firstInvalid) {
+      setStatus({ kind: 'error', message: 'Revisa los campos indicados antes de continuar.' })
+      const control = event.currentTarget.elements.namedItem(firstInvalid.name)
+      if (control instanceof HTMLElement) control.focus()
+      return
+    }
+    setStatus({ kind: 'success', message: 'Formulario validado correctamente. Esta demostración no envía mensajes: aún no hay un servicio de correo conectado.' })
+  }
+
+  return (
+    <form className="form" onSubmit={submit} noValidate aria-describedby={`${prefix}-note`}>
+      {contactFields.map(field => (
+        <ContactField key={field.name} field={field} prefix={prefix} value={values[field.name]} error={errors[field.name]} onChange={change} />
+      ))}
+      <p className="form__note" id={`${prefix}-note`}>* Campos obligatorios. Demostración sin envío de correo.</p>
+      <button className="btn btn--primary btn--block form__submit" type="submit">Validar mensaje</button>
+      <p className={`form__status${status.kind === 'error' ? ' form__status--error' : ''}`} role={status.kind === 'error' ? 'alert' : 'status'}>
+        {status.message}
+      </p>
+    </form>
+  )
 }
