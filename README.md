@@ -16,7 +16,7 @@ El proyecto migra el portafolio estático de la Evaluación N.º 2 a una aplicac
 
 ## Instalación y ejecución
 
-Se requiere Node.js compatible con Vite 8 y npm.
+Se requiere Node.js `^20.19.0` o `>=22.12.0`, según el contrato de la versión de Vite utilizada, y npm.
 
 ### Clonar el repositorio
 
@@ -99,7 +99,13 @@ scripts/
 docs/
 ├── api-github.md           Contrato y funcionamiento de la API
 ├── estado-y-tema.md        Gestión de filtros y tema
-└── verificacion-etapa-5.md  Alcance de pruebas y revisión manual
+├── verificacion-etapa-5.md  Alcance de pruebas y revisión manual
+├── auditoria-accesibilidad.md  Evidencias y registro manual
+├── como-capturar-e2.md      Procedimiento de captura
+└── captura-e2.png          Referencia visual original que debe incorporarse
+
+INVENTARIO.md               Trazabilidad de la migración
+uso_ia.md                   Declaración y reflexión sobre el uso de IA
 ```
 
 ## Migración desde la Evaluación N.º 2
@@ -118,7 +124,15 @@ Las secciones principales se convierten en vistas de React Router. Las tarjetas 
 
 Los proyectos históricos se conservan en `public/proyectos/` como evidencias autónomas que se abren en otra pestaña.
 
-La captura comparativa de E2 y el inventario detallado de migración están pendientes de incorporarse en la etapa de documentación.
+La trazabilidad de componentes, estilos e interacciones se explica en [INVENTARIO.md](INVENTARIO.md).
+
+### Referencia visual original
+
+![Portafolio original de la Evaluación N.º 2](docs/captura-e2.png)
+
+La imagen debe proceder del portafolio original conservado aparte, en alta resolución, sin reemplazarla por una captura de React. El procedimiento está en [Cómo capturar E2](docs/como-capturar-e2.md). Comprobar que el archivo esté incorporado antes del commit final.
+
+Se preservan los recursos y la identidad visual. Los cambios de estructura responden al enrutamiento por vistas exigido por la evaluación, la separación de componentes y las mejoras de accesibilidad. El inventario distingue lo recuperado de lo añadido.
 
 ## Funcionalidades
 
@@ -251,7 +265,7 @@ La implementación incorpora:
 - Estilos adaptables a distintos tamaños de pantalla.
 - Respeto por la preferencia de movimiento reducido.
 
-Estos elementos forman parte de la implementación. La auditoría integral de accesibilidad y su evidencia final todavía están pendientes; no se declara conformidad completa con WCAG.
+El alcance de las comprobaciones automatizadas, las revisiones generales declaradas por el autor y el registro específico de teclado y responsividad se distinguen en [Auditoría de accesibilidad](docs/auditoria-accesibilidad.md). Los once pares de contraste de referencia superan 4.5:1; no se declara una auditoría integral ni conformidad completa con WCAG. Completar los resultados manuales efectivamente ejecutados antes de entregar.
 
 ## Verificación
 
@@ -265,9 +279,10 @@ También puede ejecutarse el verificador automatizado:
 
 ```sh
 node scripts/verificar-proyecto.cjs
+node scripts/verificar-entrega.cjs
 ```
 
-El verificador realiza 48 comprobaciones de CSS/BEM, vistas, etiquetas, validación, asociación de errores y once pares de contraste. No ejecuta los efectos del navegador ni sustituye la revisión visual y de teclado. Su alcance se explica en [Verificación de la etapa 5](docs/verificacion-etapa-5.md).
+El primer verificador realiza 48 comprobaciones de CSS/BEM, vistas, etiquetas, validación, asociación de errores y once pares de contraste. No ejecuta los efectos del navegador ni sustituye la revisión visual y de teclado. Su alcance se explica en [Verificación de la etapa 5](docs/verificacion-etapa-5.md). El segundo comprueba los documentos, sus enlaces relativos, las seis secciones de la bitácora y la presencia de una captura PNG válida. Estos verificadores no sustituyen la revisión personal de los contenidos.
 
 ### Comprobaciones manuales
 
@@ -281,7 +296,7 @@ El verificador realiza 48 comprobaciones de CSS/BEM, vistas, etiquetas, validaci
 - Simular falta de conexión y recuperar la consulta con Reintentar.
 - Revisar la interfaz en móvil y con teclado.
 
-Los resultados de la revisión manual y la auditoría final se documentarán al completar las etapas restantes.
+El autor declaró revisiones manuales de distintas versiones y del alcance para el usuario. Los resultados específicos de teclado y tamaños de pantalla deben registrarse en [la auditoría](docs/auditoria-accesibilidad.md); no se atribuyen pruebas ni métricas que no se hayan realizado.
 
 ## Flujo de Git
 
@@ -294,6 +309,7 @@ Organización de ramas por etapa:
 - `feat/consumo-api`.
 - `feat/filtros-tema`.
 - `style/bem-accesibilidad`.
+- `docs/documentacion-final`.
 
 Cada Pull Request debe describir los cambios, explicar cómo comprobarlos y revisarse antes de su integración.
 
@@ -305,14 +321,19 @@ Como se utiliza `BrowserRouter`, el alojamiento debe servir `index.html` al soli
 
 La configuración del alojamiento y la publicación no están incluidas todavía.
 
-## Trabajo pendiente
+## Uso de IA
 
-- Completar la revisión manual de accesibilidad, teclado y diseño responsivo.
-- Revisar el tamaño y la carga de las imágenes históricas.
-- Completar las pruebas y registrar sus resultados.
-- Incorporar `docs/captura-e2.png`.
-- Completar `INVENTARIO.md`.
-- Incorporar `uso_ia.md` con las seis secciones exigidas y una reflexión personal.
+La participación del asistente, los prompts, las verificaciones y la reflexión del autor se documentan en [uso_ia.md](uso_ia.md). El asistente generó una parte sustancial del código y la documentación; el autor dirigió y revisó las decisiones y aplicó los avances por etapas.
+
+## Comprobación previa a la entrega
+
+- Revisar que `docs/captura-e2.png` muestre el original en alta resolución.
+- Completar los resultados reales de teclado y responsividad en la auditoría.
+- Revisar que la reflexión de `uso_ia.md` represente la experiencia personal del autor.
+- Ejecutar lint, build y los verificadores.
+- Revisar el PR final y comprobar que los cambios estén integrados en `main`.
+
+Las imágenes históricas conservan sus dimensiones originales. La optimización adicional y un servicio real de correo son posibles mejoras posteriores; no se presentan como implementadas.
 
 ## Autor
 
